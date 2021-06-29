@@ -14,16 +14,22 @@ fun main() {
     val aumento = "1.1".toBigDecimal()
     val salariosComAumento: Array<BigDecimal> = salarios2
         .map { salario ->
-            if (salario < "5000".toBigDecimal()) {
-                salario + "500".toBigDecimal()
-            } else {
-                (salario * aumento).setScale(2, RoundingMode.UP)
-            }
+            calculaAumentoRelativo(salario, aumento)
         }
         .toTypedArray()
 
     println(salariosComAumento.contentToString())
+
+    val gastoInicial = salariosComAumento.somatoria()
+    println(gastoInicial)
 }
+
+private fun calculaAumentoRelativo(salario: BigDecimal, aumento: BigDecimal) =
+    if (salario < "5000".toBigDecimal()) {
+        salario + "500".toBigDecimal()
+    } else {
+        (salario * aumento).setScale(2, RoundingMode.UP)
+    }
 
 //converte valores de String para um array de big decimal
 fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> { //pode passar qualquer qnt de valores para função. Vão estar num array de strings
@@ -32,3 +38,9 @@ fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> { //pode passar
     }
 }
 
+//Extention function. Vamos poder chamar ela junto com salariosComAumento que é um array big decimal
+fun Array<BigDecimal>.somatoria(): BigDecimal {
+    return this.reduce { acumulador, valor -> //valor é cada casa do Array BigDecimal e acumulador acumula todos estes valores
+        acumulador + valor
+    }
+}
