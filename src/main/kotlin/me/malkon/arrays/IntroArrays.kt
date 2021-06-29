@@ -1,25 +1,27 @@
 package me.malkon.arrays
 
 fun main() {
-    //essa função tem o código mais conciso que array tradicional
-    val idades: IntArray = intArrayOf(25, 19, 33, 20, 55)
+    val salarios: DoubleArray = doubleArrayOf(1500.50, 2300.0, 5000.0, 8000.0, 10000.00)
 
-    var maiorIdade2 = 0
+    val aumento = 1.1
+    var indice = 0
 
-    for (idade in idades) {//para cada idade dentro do array de idades
-        if (idade > maiorIdade2) {
-            maiorIdade2 = idade
-        }
+    for (salario in salarios) {//salario é uma var imutável entao não podemos modificar o valor dela
+        salarios[indice] = salario * aumento
+        indice++
     }
-    println(maiorIdade2)
+    println(salarios.contentToString())
 
-    var menorIdade = Int.MAX_VALUE
-    //função forEach código fica mais organizado e fácil de manter. Desempenho maior?
-    idades.forEach { idade ->
-        if (idade < menorIdade) {
-            menorIdade = idade
-        }
+    for (indice in salarios.indices) {//itera com cada indice do array(que é incrementado automaticamente)
+        // ao invés dos elementos do array
+        salarios[indice] = salarios[indice] * aumento
+    }
+    println(salarios.contentToString())
+
+    salarios.forEachIndexed { i, salario -> //i é o índice
+        salarios[i] = salario * aumento
     }
 
-    println(menorIdade)
+    println(salarios.contentToString())
+
 }
