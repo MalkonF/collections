@@ -28,7 +28,17 @@ fun main() {
     val gastoTotal = salariosComAumento.fold(gastoInicial) { acumulador, salario ->
         acumulador + (salario * meses).setScale(2, RoundingMode.UP)
     }
-    println(gastoTotal)
+    println(
+        "Gasto total: ${gastoTotal}"
+    )
+
+    val salariosOrdenados = salariosComAumento.sorted()
+    val tresUltimosSalarios: Array<BigDecimal> = salariosOrdenados.takeLast(3)//pega os 3 ultimos elementos
+        .toTypedArray()
+    val media = tresUltimosSalarios.media()
+    println(media)
+    //feito tudo em uma linha métodos encadeados
+    //salariosComAumento.sorted().takeLast(3).toTypedArray().media()
 }
 
 private fun calculaAumentoRelativo(salario: BigDecimal, aumento: BigDecimal) =
@@ -38,16 +48,4 @@ private fun calculaAumentoRelativo(salario: BigDecimal, aumento: BigDecimal) =
         (salario * aumento).setScale(2, RoundingMode.UP)
     }
 
-//converte valores de String para um array de big decimal
-fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> { //pode passar qualquer qnt de valores para função. Vão estar num array de strings
-    return Array<BigDecimal>(valores.size) { i ->
-        valores[i].toBigDecimal()
-    }
-}
 
-//Extention function. Vamos poder chamar ela junto com salariosComAumento que é um array big decimal
-fun Array<BigDecimal>.somatoria(): BigDecimal {
-    return this.reduce { acumulador, valor -> //valor é cada casa do Array BigDecimal e acumulador acumula todos estes valores
-        acumulador + valor
-    }
-}
