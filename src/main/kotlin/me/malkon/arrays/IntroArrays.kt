@@ -1,27 +1,30 @@
 package me.malkon.arrays
 
 fun main() {
-    val salarios: DoubleArray = doubleArrayOf(1500.50, 2300.0, 5000.0, 8000.0, 10000.00)
-
-    val aumento = 1.1
-    var indice = 0
-
-    for (salario in salarios) {//salario é uma var imutável entao não podemos modificar o valor dela
-        salarios[indice] = salario * aumento
-        indice++
-    }
-    println(salarios.contentToString())
-
-    for (indice in salarios.indices) {//itera com cada indice do array(que é incrementado automaticamente)
-        // ao invés dos elementos do array
-        salarios[indice] = salarios[indice] * aumento
-    }
-    println(salarios.contentToString())
-
-    salarios.forEachIndexed { i, salario -> //i é o índice
-        salarios[i] = salario * aumento
+    val serie: IntRange = 1.rangeTo(10)
+    for (s in serie) {
+        print("$s ")
     }
 
-    println(salarios.contentToString())
+    val numPar = 0..100 step 2
+    for (numeroPar in numPar) {
+        println("$numeroPar ")
+    }
 
+    val numerosParesReverso = 100 downTo 0 step 2
+    numerosParesReverso.forEach { print("${it} ") }
+
+    val intervalo = 1500.0..5000.0
+    val salario = 4000.0
+    if (salario in intervalo) {
+        println("Esta no intervalo")
+    } else {
+        println("Não está dentro do intervalo")
+    }
+
+    val alfa = 'a'..'z'
+    val letra = 'k'
+    println(letra in alfa)
 }
+
+
