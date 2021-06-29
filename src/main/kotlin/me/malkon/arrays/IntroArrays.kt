@@ -1,28 +1,34 @@
 package me.malkon.arrays
 
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 fun main() {
-    val idades: IntArray = intArrayOf(10, 12, 18, 33, 40, 67)
-    val maiorIdade = idades.maxOrNull()
-    println(maiorIdade)
+    val salarios2 = bigDecimalArrayOf("1500.55", "2000.00", "5000.0", "10000.0")
+    val salarios = Array<BigDecimal>(5) { BigDecimal.ZERO } // array com 5 elementos BigDecimal todos incializados com 0
+    salarios[0] = "1500.55".toBigDecimal()
+    salarios[1] = "2004.00".toBigDecimal()
+    println(salarios.contentToString())
+    println(salarios2.contentToString())
 
-    val menorIdade = idades.minOrNull()
-    println(menorIdade)
+    val aumento = "1.1".toBigDecimal()
+    val salariosComAumento: Array<BigDecimal> = salarios2
+        .map { salario ->
+            if (salario < "5000".toBigDecimal()) {
+                salario + "500".toBigDecimal()
+            } else {
+                (salario * aumento).setScale(2, RoundingMode.UP)
+            }
+        }
+        .toTypedArray()
 
-    val media: Double = idades.average()
-    println(media)
-
-    var todosMaiores = idades.all { it > 18 } //retorna true se todos os elementos do array condizeram com a condição
-    println("Todos maiores? ${todosMaiores}")
-
-    val existeMaior = idades.any { it >= 18 }
-    println("Algum aluno maior de idade? ${existeMaior}")
-
-    val maiores = idades.filter { it >= 18 } //retorna uma lista com todos valores maior de 18
-    println(maiores)
-
-    val busca = idades.find { it == 18 } //se tiver 2 valores iguais 18 ele retorna o primeiro
-    println(busca)
-
+    println(salariosComAumento.contentToString())
 }
 
+//converte valores de String para um array de big decimal
+fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> { //pode passar qualquer qnt de valores para função. Vão estar num array de strings
+    return Array<BigDecimal>(valores.size) { i ->
+        valores[i].toBigDecimal()
+    }
+}
 
